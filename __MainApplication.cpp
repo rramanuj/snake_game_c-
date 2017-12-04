@@ -35,9 +35,9 @@ class Game
 void Game::set_up(UserInterface* pui) {
 	//prepare game
 	//set up the holes
-	underground_.set_hole_no_at_position(0,  4,  3);
+	/*underground_.set_hole_no_at_position(0,  4,  3);
 	underground_.set_hole_no_at_position(1, 15, 10);
-	underground_.set_hole_no_at_position(2,  7, 15);
+	underground_.set_hole_no_at_position(2,  7, 15);*/
 	//mouse state already set up in its contructor
 	//set up snake
 	snake_.position_at_random();

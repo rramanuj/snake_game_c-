@@ -7,15 +7,15 @@
 
 Hole::Hole()
 {} 
-Hole::Hole(int x, int y) {
+ Hole::Hole(int x, int y) {
 	symbol_ = HOLE;	
 	x_ = x;
 	y_ = y;
 }
-int Hole::get_x() {
+int Hole::get_x() const {
 	return x_; 
 }
-int Hole::get_y() {
+int Hole::get_y() const {
 	return y_;
 }
 char Hole::get_symbol() const {
@@ -26,22 +26,26 @@ bool Hole::is_at_position(int x, int y) {
 }
 
 static const int MAXHOLES(3); //number of holes in underground
-Underground::Underground() : holes_(MAXHOLES)
-{}
+const Hole h(4, 2);
+const Hole h2(4, 1);
+const Hole h3(4, 2);
+Underground::Underground() : holes_{h,h2,h3}
 
+{	
+}
 Hole Underground::get_hole_no(int no) const {
 	assert (is_valid_hole_number(no));	//precondition: valid hole number
 	return holes_.at(no);
 }
-void Underground::set_hole_no_at_position(int no, int x, int y) {
+/*void Underground::set_hole_no_at_position(int no, int x, int y) {
 	assert (is_valid_hole_number(no));	//precondition: valid hole number
-	Hole h(x, y);
-	switch (no) {
-	case 0: holes_.at(0) = h; break;
-	case 1: holes_.at(1) = h; break;
-	case 2: holes_.at(2) = h; break;
-	}
-}
+	Hole h(4, 2)
+		switch (no) {
+		case 0: holes_.at(0) = h; break;
+		case 1: holes_.at(1) = h; break;
+		case 2: holes_.at(2) = h; break;
+		}*/
+
 bool Underground::is_valid_hole_number(int no) const {
 	return (no >= 0) && (no < holes_.size()); 
 }

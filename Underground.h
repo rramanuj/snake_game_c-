@@ -26,14 +26,16 @@ class Hole {
 	public:
 		//constructors
 		Hole();
-		Hole(int x, int y);
+		const Hole(int x, int y);
 		//assessors
-		int get_x();
-		int get_y();
+		int get_x() const;
+		int get_y() const;
 		char get_symbol() const;
 		bool is_at_position(int x, int y);
 	private:
+		
 		static const int MAXHOLES; //number of holes in underground
+		 
 		//data members
 		char symbol_;
 		int x_, y_;
@@ -41,11 +43,17 @@ class Hole {
 
 class Underground {
 public:
+
 	Underground();
 	Hole get_hole_no(int no) const;
-	void set_hole_no_at_position(int no, int x, int y);
+	
+	void set_hole_no_at_position(const int& no, const int& x, const int& y) const;
 	bool is_valid_hole_number(int n) const;
-	vector<Hole> holes_;
+	const vector<Hole> holes_;
+
+
+private:
+
 };
 
 #endif // !defined(UndergroundH) 

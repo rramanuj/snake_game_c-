@@ -26,7 +26,7 @@ int Mouse::get_y() {
 char Mouse::get_symbol() const {
 	return symbol_;
 }
-bool Mouse::is_at_position(int x, int y) {
+bool Mouse::is_at_position(int x, int y) const {		//changed to const
 	return (x_ == x) && (y_ == y);
 }
 bool Mouse::is_alive() const {
@@ -35,7 +35,9 @@ bool Mouse::is_alive() const {
 bool Mouse::has_escaped() const {
 	return escaped_;
 }
-bool Mouse::has_reached_a_hole(Underground ug) {
+
+bool Mouse::has_reached_a_hole(const Underground& ug) const {	//get functions should be changed to constant
+																	//changed function to constant
 	for (int h_no(0); h_no < ug.holes_.size(); ++h_no)
 	{
 		Hole h = ug.get_hole_no(h_no);

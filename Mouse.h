@@ -21,10 +21,10 @@ class Mouse {
 		int get_x();
 		int get_y();
 		char get_symbol() const;
-		bool is_at_position(int x, int y);
+		bool is_at_position(int x, int y)const;
 		bool is_alive() const;
 		bool has_escaped() const;
-		bool has_reached_a_hole(Underground ug);
+		bool has_reached_a_hole(const Underground& ug) const;
 		//mutators
 		void die();
 		void escape_into_hole();
