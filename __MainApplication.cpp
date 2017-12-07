@@ -18,9 +18,10 @@ UserInterface ui;
 int main()
 {
 	Game game;
-
-
+	fstream fin;
+	fin.open("Game.txt");
 	
+	game << (fin,game);
 	game.set_up(&ui);
 	game.run();
 

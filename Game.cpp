@@ -100,7 +100,7 @@ string Game::prepare_end_message() {
 
 //serialization - replaces the use of the operator functions
 
-ofstream& operator <<(ofstream& fout, const string& game) {
+/*ofstream& operator <<(ofstream& fout, const string& game) {
 	
 	fout.open("Game.txt", ios::out);
 	if (fout.fail())
@@ -119,4 +119,56 @@ ifstream& operator >>(ifstream& fin, const string& game) {
 		fin >> game;
 	fin.close();
 	return(fin);
+}*/
+void Game::storeGameStatus(const string& fileName) const {
+	ofstream toFile;
+	toFile.open(fileName.c_str(), ios::out);	//open copy file in write mode
+	if (toFile.fail())
+		cout << "\nAN ERROR HAS OCCURED WHEN OPENING THE FILE.";
+	else
+		toFile << (*this);	//store all info to bank account file
+	toFile.close();			//close file: optional here
+}
+ostream& Game::putDataInStream(ostream& os) const {
+	//put (unformatted) BankAccount details in stream
+	putGameDataInStream(os);			//put bank account core information in stream
+	if (transactions_.size() != 0)
+		os << transactions_;				//put all transactions, one per line
+	return os;
+}
+ostream& Game::putGameDataInStream(ostream& os) const {
+	//put (unformatted) BankAccount details in stream
+	os << accountType_ << "\n";				//put account type
+	os << accountNumber_ << "\n";			//put account number
+	os << sortCode_ << "\n";				//put sort code
+	os << creationDate_ << "\n";			//put creation date
+	os << balance_ << "\n";					//put balance
+	return os;
+}
+istream& Game::getDataFromStream(istream& is) {
+	//get BankAccount details from stream
+	getAccountDataFromStream(is);			//get bank account ore information from stream
+	is >> transactions_;					//get all transactions (if any)
+	return is;
+}
+istream& Game::getGameDataFromStream(istream& is) {
+	//get BankAccount details from stream
+	is >> accountType_;						//get account type
+	is >> accountNumber_;					//get account number
+	is >> sortCode_;						//get sort code
+	is >> creationDate_;					//get creation date
+	is >> balance_;							//get balance
+	return is;
+}
+//---------------------------------------------------------------------------
+//non-member operator functions
+//---------------------------------------------------------------------------
+
+ostream& operator<<(ostream& os, const BankAccount& aBankAccount) {
+	//put (unformatted) BankAccount details in stream
+	return aBankAccount.putDataInStream(os);
+}
+istream& operator>>(istream& is, BankAccount& aBankAccount) {
+	//get BankAccount details from stream
+	return aBankAccount.getDataFromStream(is);
 }
