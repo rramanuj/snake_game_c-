@@ -65,3 +65,7 @@ void Snake::position_at_random() {
 	x_ = rng_.get_random_value(SIZE);        //WARNING: may fall on mouse
 	y_ = rng_.get_random_value(SIZE);
 }
+void Snake::set_position(int x, int y) {
+	x_ = x;
+	y_ = y;
+}

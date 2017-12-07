@@ -16,6 +16,7 @@ class Snake {
 		char symbol_;
 		int getX() const;
 		int getY() const;
+		void set_position(int x, int y);
 	private:
 
 		int x_, y_;		//moved to private, accessed via getters

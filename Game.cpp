@@ -6,14 +6,23 @@
 using namespace std;
 
 void Game::set_up(UserInterface* pui) {
+	int answer;
 	//prepare game
 	//set up the holes
-	/*underground_.set_hole_no_at_position(0,  4,  3);
-	underground_.set_hole_no_at_position(1, 15, 10);
-	underground_.set_hole_no_at_position(2,  7, 15);*/
+
 	//mouse state already set up in its contructor
 	//set up snake
-	snake_.position_at_random();
+
+
+	ostringstream os;
+		os << "PRESS 1 FOR NEW GAME, OR 2 TO CONTINUE!";
+		cin >> answer;
+		if (answer == 1) {
+			snake_.position_at_random();
+		}
+		else {
+			loadGame(*this);
+		}
 	snake_.spot_mouse(&mouse_);
 	//set up the UserInterface
 	p_ui = pui;
@@ -81,9 +90,20 @@ bool Game::has_ended(char key) {
 	return ((key == 'Q') || (!mouse_.is_alive()) || (mouse_.has_escaped()));
 }
 
-int Game::getSnakeX() {
+
+void Game::setSnaketoLoad(int x, int y) {
+	snake_.set_position(x,y);
+};
+
+const int Game::getSnakeX() {
 	return snake_.getX();
 }
+
+const int Game::getSnakeY() {
+	return snake_.getY();
+}
+
+
 string Game::prepare_end_message() {
 	ostringstream os;
 	if (mouse_.has_escaped())
@@ -93,6 +113,7 @@ string Game::prepare_end_message() {
 			os << "\n\nEND OF GAME: THE SNAKE ATE THE MOUSE!";
 		else
 			os << "\n\nEND OF GAME: THE PLAYER ENDED THE GAME!";
+	storeGameStatus(*this); //saves game status
 	return os.str();
 
 	
@@ -103,7 +124,7 @@ string Game::prepare_end_message() {
 //serialization - replaces the use of the operator functions
 
 
-void Game::loadGame(const Game game) const{
+void Game::loadGame(Game& game) {
 	ifstream fromFile;
 	fromFile.open("Game.txt", ios::in); 	//open file in read mode
 	if (fromFile.fail())
@@ -113,7 +134,7 @@ void Game::loadGame(const Game game) const{
 		fromFile.close();			//close file: optional here
 }
 
-void Game::storeGameStatus(const Game game) const {
+void Game::storeGameStatus( Game game)  {
 	ofstream fout;
 	fout.open("Game.txt", ios::out);
 	if (fout.fail())
@@ -123,15 +144,19 @@ void Game::storeGameStatus(const Game game) const {
 	fout.close();
 }
 
-const ostream& operator<<(ostream& os, Game aGame)  {
-	os << aGame.getSnakeX();		//saves the snake x position
+const ostream& operator<<(ostream& os, Game& aGame)  {
 	
+	os << aGame.getSnakeX() << "\n";	//saves the snake x position
+	os << aGame.getSnakeY() << "\n";
+
 	return os;
 }
-const istream& operator>>(istream& is, const Game aGame) {
+const istream& operator>>(istream& is,  Game &aGame) {
 	ostringstream os;
-	char output[100];
-	is >> output;
-	os << output;
+	int x;
+	int y;
+	is >> x;
+	is >> y;
+	aGame.setSnaketoLoad(x, y);
 	return is;
 }
