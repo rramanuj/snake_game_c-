@@ -4,24 +4,7 @@
 //////////////////////////////////////////////////////////////////////
 #include "constants.h"
 #include "Mouse.h"
-#include "RandomNumberGenerator.h"
-
-class Snake {
-	public:
-		Snake();
-		~Snake();
-		bool is_at_position(int x, int y);  
-		bool has_caught_mouse() ;
-		void spot_mouse(Mouse* p_mouse);
-		void chase_mouse();
-		void set_direction(int& dx, int& dy);
-		void position_at_random();
-		void update_position(int dx, int dy);
-		char symbol_;
-		int x_, y_;
-		Mouse* p_mouse_;
-		RandomNumberGenerator rng_;
-};
+#include "Snake.h"
 
 Snake::Snake() {
 	symbol_ = SNAKEHEAD;
@@ -69,7 +52,15 @@ void Snake::update_position(int dx, int dy) {
 	x_ += dx;
 	y_ += dy;
 }
+int Snake::getX() const {
+	return x_;
+}
+int Snake::getY() const {
+	return y_;
+}
 
+const RandomNumberGenerator Snake::rng_;
+RandomNumberGenerator Snake::getRNG() const { return rng_; }
 void Snake::position_at_random() {
 	x_ = rng_.get_random_value(SIZE);        //WARNING: may fall on mouse
 	y_ = rng_.get_random_value(SIZE);
