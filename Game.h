@@ -20,19 +20,10 @@ public:
 	//friend ifstream& operator >>(ifstream& fin, const string& game_);
 	//functions to put data into and get data from streams
 
-	ostream& putDataInStream(ostream& os) const;
-	ostream& putGameDataInStream(ostream& os) const;
-	istream& getDataFromStream(istream& is);
-	istream& getGameDataInStream(istream& is);
-	void readLastGameStatus(const string& fileName);
-	void storeGameStatus(const string& fileName) const;
-
-	//---------------------------------------------------------------------------
-//non-member operator functions
-//---------------------------------------------------------------------------
-
-ostream& operator<<(ostream&, const BankAccount&);	//output operator
-istream& operator>>(istream&, BankAccount&);	    //input operator
+	void loadGame(Game game) const;
+	void storeGameStatus(Game game) const;
+	int getSnakeX();
+	int getSnakeY();
 
 private:
 	Mouse mouse_;
@@ -45,6 +36,6 @@ private:
 //non-member operator functions
 //---------------------------------------------------------------------------
 
-ostream& operator<<(ostream&, const string& game_);	//output operator
-istream& operator>>(istream&, const string& game_);	    //input operator
+const ostream& operator<<(ostream&, const Game game_) ;	//output operator
+const istream& operator>>(istream&, const Game game_) ;	    //input operator
 

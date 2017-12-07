@@ -19,12 +19,14 @@ int main()
 {
 	Game game;
 	fstream fin;
-	fin.open("Game.txt");
+//	fin.open("Game.txt");
 	
-	game << (fin,game);
+	
+	game.loadGame(game);
 	game.set_up(&ui);
 	game.run();
-
+	game.storeGameStatus(game);
 	ui.hold_window();
 	return 0;
+
 }
