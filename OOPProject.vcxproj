@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -19,12 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FixedGridItem.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GridItem.cpp" />
     <ClCompile Include="Hole.cpp" />
-    <ClCompile Include="MoveableGridItem.cpp" />
-    <ClCompile Include="Tail.cpp" />
     <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="RandomNumberGenerator.cpp" />
@@ -34,13 +30,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h" />
-    <ClInclude Include="FixedGridItem.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GridItem.h" />
     <ClInclude Include="Hole.h" />
-    <ClInclude Include="MoveableGridItem.h" />
     <ClInclude Include="Snake.h" />
-    <ClInclude Include="Tail.h" />
     <ClInclude Include="UserInterface.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="RandomNumberGenerator.h" />

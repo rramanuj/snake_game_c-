@@ -1,32 +1,3 @@
-﻿  Snake.cpp
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\snake.cpp(28): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-  Mouse.cpp
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\mouse.cpp(23): error C2039: 'reset': is not a member of 'Mouse'
-  c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\mouse.h(17): note: see declaration of 'Mouse'
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\mouse.cpp(24): error C2065: 'alive_': undeclared identifier
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\mouse.cpp(25): error C2065: 'escaped_': undeclared identifier
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\mouse.cpp(26): error C3861: 'positionInMiddleOfGrid': identifier not found
-  Game.cpp
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\game.cpp(47): error C2039: 'new_game': is not a member of 'Game'
-  c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\game.h(8): note: see declaration of 'Game'
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\game.cpp(48): error C2065: 'nut_': undeclared identifier
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\game.cpp(48): error C2228: left of '.reset' must have class/struct/union
-  c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\game.cpp(48): note: type is 'unknown-type'
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\game.cpp(49): error C2065: 'snake_': undeclared identifier
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\game.cpp(49): error C2059: syntax error: '('
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\game.cpp(50): error C2228: left of '.snake_' must have class/struct/union
-  c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\game.cpp(50): note: type is 'unknown-type'
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\game.cpp(50): error C2228: left of '.reset' must have class/struct/union
-  c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\game.cpp(50): note: type is 'unknown-type'
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\game.cpp(102): error C2039: 'set_position': is not a member of 'Snake'
-  c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\snake.h(5): note: see declaration of 'Snake'
-  FixedGridItem.cpp
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\fixedgriditem.cpp(2): error C2789: 'FixedGridItem::x': an object of const-qualified type must be initialized
-  c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\fixedgriditem.h(10): note: see declaration of 'FixedGridItem::x'
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\fixedgriditem.cpp(2): error C2789: 'FixedGridItem::y': an object of const-qualified type must be initialized
-  c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\fixedgriditem.h(10): note: see declaration of 'FixedGridItem::y'
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\fixedgriditem.cpp(2): error C2614: 'FixedGridItem': illegal member initialization: 'x_' is not a base or member
-c:\users\rasesh\documents\object oriented programming\oop---assignment-1a\fixedgriditem.cpp(2): error C2614: 'FixedGridItem': illegal member initialization: 'y_' is not a base or member
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  __MainApplication.cpp
+﻿  Game.cpp
+  OOPProject.vcxproj -> C:\Users\b3042260\Desktop\OOP---Assignment-1A\x64\Debug\OOPProject.exe
+  OOPProject.vcxproj -> C:\Users\b3042260\Desktop\OOP---Assignment-1A\x64\Debug\OOPProject.pdb (Partial PDB)

@@ -18,7 +18,7 @@ void Game::set_up(UserInterface* pui) {
 		os << "PRESS 1 FOR NEW GAME, OR 2 TO CONTINUE!";
 		cin >> answer;
 		if (answer == 1) {
-			snake_.place_randomly();
+			snake_.position_at_random();
 		}
 		else {
 			loadGame(*this);
@@ -44,13 +44,6 @@ void Game::run() {
 	}
 	p_ui->show_results_on_screen(prepare_end_message());
 }
-void Game::new_game() {
-	nut_.reset();
-	snake_.();
-	snake_.reset();
-
-}
-
 string Game::prepare_grid() {
 	//prepare a string that holds the grid information
 	ostringstream os;
@@ -58,8 +51,8 @@ string Game::prepare_grid() {
 	{
 		for (int col(1); col <= SIZE; ++col)	//for each column (horizontally)
 		{
-			if ((row == snake_.get_y()) && (col == snake_.get_x()))
-				os << snake_.get_symbol();	//show snake
+			if ((row == snake_.getY()) && (col == snake_.getX()))
+				os << snake_.symbol_;	//show snake
 			else
 				if ((row == mouse_.get_y()) && (col == mouse_.get_x()))
 					os << mouse_.get_symbol();	//show mouse
@@ -99,15 +92,15 @@ bool Game::has_ended(char key) {
 
 
 void Game::setSnaketoLoad(int x, int y) {
-	snake_.set_position(x,y);	//need to ammend for serialization.
+	snake_.set_position(x,y);
 };
 
 const int Game::getSnakeX() {
-	return snake_.get_x();
+	return snake_.getX();
 }
 
 const int Game::getSnakeY() {
-	return snake_.get_y();
+	return snake_.getY();
 }
 
 
