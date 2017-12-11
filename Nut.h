@@ -1,6 +1,6 @@
 #include "constants.h"
-#include "FixedGridItem.h"
-class Nut : public FixedGridItem {
+#include "MoveableGridItem.h"
+class Nut : public MoveableGridItem {
 public:
 	//constructor
 	Nut::Nut();

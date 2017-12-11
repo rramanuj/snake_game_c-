@@ -1,5 +1,5 @@
 #include "Nut.h"
-Nut::Nut() : FixedGridItem(NUT, 8, 9) { collected_ = false; };
+Nut::Nut() : MoveableGridItem(NUT, 8, 9) { collected_ = false; };
 
 bool Nut::has_been_collected() const {
 	return collected_;
