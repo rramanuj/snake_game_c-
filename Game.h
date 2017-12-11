@@ -10,6 +10,7 @@ public:
 	
 	void set_up(UserInterface* pui);
 	void run();
+	void new_game();
 	string prepare_grid();
 	bool is_arrow_key_code(int keycode);
 	void apply_rules();
@@ -18,8 +19,7 @@ public:
 	string prepare_end_message();
 	void loadGame(Game &game);
 	void storeGameStatus(Game game);
-	//friend ofstream& operator <<(ofstream& fout, const string& game_);	//serilization
-	//friend ifstream& operator >>(ifstream& fin, const string& game_);
+	
 	//functions to put data into and get data from streams
 
 	//void loadGame(Game &game) const;

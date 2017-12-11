@@ -1,3 +1,5 @@
-﻿  Game.cpp
-  OOPProject.vcxproj -> C:\Users\b3042260\Desktop\OOP---Assignment-1A\x64\Debug\OOPProject.exe
-  OOPProject.vcxproj -> C:\Users\b3042260\Desktop\OOP---Assignment-1A\x64\Debug\OOPProject.pdb (Partial PDB)
+﻿  Snake.cpp
+c:\users\b3042260\desktop\oop---assignment-1a-b6af9137273dbdb521ee981408c873af7bd3b321\snake.cpp(39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+c:\users\b3042260\desktop\oop---assignment-1a-b6af9137273dbdb521ee981408c873af7bd3b321\snake.cpp(32): warning C4715: 'Snake::output_tail': not all control paths return a value
+  OOPProject.vcxproj -> C:\Users\b3042260\Desktop\OOP---Assignment-1A-b6af9137273dbdb521ee981408c873af7bd3b321\x64\Debug\OOPProject.exe
+  OOPProject.vcxproj -> C:\Users\b3042260\Desktop\OOP---Assignment-1A-b6af9137273dbdb521ee981408c873af7bd3b321\x64\Debug\OOPProject.pdb (Partial PDB)
