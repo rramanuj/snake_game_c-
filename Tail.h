@@ -6,4 +6,5 @@ class Tail : public MoveableGridItem
 {
 public:
 	Tail(const int& x, const int& y);
+
 };

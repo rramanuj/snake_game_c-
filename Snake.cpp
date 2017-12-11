@@ -84,7 +84,9 @@ void Snake::set_direction(int& dx, int& dy)
 }
 void Snake::set_position(int x_, int y_) {
 		reset_position(x_, y_);	//for serialization
-
+		tail[0].reset_position(x_, y_);
+		tail[1].reset_position(x_, y_);		//coil the snake
+		tail[2].reset_position(x_, y_);
 }
 
 
@@ -94,4 +96,5 @@ void Snake::position_at_random() {
 	reset_position(rng_.get_random_value(SIZE), rng_.get_random_value(SIZE));
 	for (int i = 0; i < tail.size(); i++)
 		tail[i].reset_position(get_x(), get_y());
+
 }
