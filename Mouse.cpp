@@ -20,10 +20,10 @@ bool Mouse::is_alive() const {
 bool Mouse::has_escaped() const {
 	return escaped_;
 }
-void Mouse::reset() {
+void Mouse::new_game() {
 	alive_ = true;
 	escaped_ = false;
-	positionInMiddleOfGrid();
+	position_in_middle_of_grid();
 }
 bool Mouse::has_reached_a_hole(const Underground& ug) const {	//get functions should be changed to constant
 																	//changed function to constant

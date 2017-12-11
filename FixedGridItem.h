@@ -7,5 +7,5 @@ public:
 	int get_y() const;
 	bool is_at_position(const int& x, const int& y) const;
 private:
-	const int x, y;
+	const int x_, y_;
 };

@@ -5,4 +5,5 @@ public:
 	char get_symbol() const;
 private:
 	const char symbol;
+
 };

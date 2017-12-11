@@ -7,6 +7,9 @@ class Snake : public MoveableGridItem {
 		Snake();
 		~Snake();
 		bool has_caught_mouse() ;
+		void new_game();
+
+		char output_tail() const;
 		void spot_mouse(Mouse* p_mouse);
 		void chase_mouse();
 		RandomNumberGenerator getRNG() const;
@@ -14,7 +17,7 @@ class Snake : public MoveableGridItem {
 			
 		void move_tail();
 		bool get_tail_position(const int& x, const int& y)const;
-		void place_randomly();
+		void set_position(int x_, int y_); //serialization
 	private:
 
 		Mouse* p_mouse_;

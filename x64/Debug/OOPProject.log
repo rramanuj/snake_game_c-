@@ -1,3 +1,17 @@
-﻿  LINK : C:\Users\b3042260\Desktop\OOP---Assignment-1A\x64\Debug\OOPProject.exe not found or not built by the last incremental link; performing full link
+﻿  Underground.cpp
+  __MainApplication.cpp
+  Snake.cpp
+c:\users\b3042260\desktop\oop---assignment-1a\snake.cpp(39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  RandomNumberGenerator.cpp
+  Mouse.cpp
+  UserInterface.cpp
+  Tail.cpp
+  MoveableGridItem.cpp
+  Hole.cpp
+  GridItem.cpp
+  Game.cpp
+  FixedGridItem.cpp
+  Generating Code...
+c:\users\b3042260\desktop\oop---assignment-1a\snake.cpp(32): warning C4715: 'Snake::output_tail': not all control paths return a value
   OOPProject.vcxproj -> C:\Users\b3042260\Desktop\OOP---Assignment-1A\x64\Debug\OOPProject.exe
   OOPProject.vcxproj -> C:\Users\b3042260\Desktop\OOP---Assignment-1A\x64\Debug\OOPProject.pdb (Partial PDB)

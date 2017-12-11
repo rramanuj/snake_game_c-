@@ -19,6 +19,17 @@ bool Snake::has_caught_mouse() {
 	//encapsulation again, replaced with getters
 }
 
+void Snake::new_game() {
+	//reset the snakes position for a new game 
+	position_at_random();
+}
+char Snake::output_tail() const
+{
+	for (unsigned int i = 0; i < tail.size(); i++)
+	{
+		return tail[i].get_symbol();
+	}
+}
 void Snake::spot_mouse(Mouse* p_mouse) {
 	assert(p_mouse != nullptr);	 //Pre-condition: The mouse needs to exist 
 	p_mouse_ = p_mouse;
@@ -51,6 +62,7 @@ void Snake::chase_mouse() {
 	//identify direction of travel
 	set_direction(snake_dx, snake_dy);
 	//go in that direction
+	move_tail();
 	update_position(snake_dx, snake_dy);
 }
 void Snake::set_direction(int& dx, int& dy)
@@ -70,13 +82,19 @@ void Snake::set_direction(int& dx, int& dy)
 		if (get_y() > p_mouse_->get_y())         //if snake is below mouse
 			dy = -1;                     //snake should move up
 }
-void Snake::place_randomly() {
-	position_at_random();
+void Snake::set_position(int x_, int y_) {
+		reset_position(x_, y_);	//for serialization
+		tail[0].reset_position(x_, y_);
+		tail[1].reset_position(x_, y_);		//coil the snake
+		tail[2].reset_position(x_, y_);
 }
+
+
 const RandomNumberGenerator Snake::rng_;
 RandomNumberGenerator Snake::getRNG() const { return rng_; }
 void Snake::position_at_random() {
 	reset_position(rng_.get_random_value(SIZE), rng_.get_random_value(SIZE));
 	for (int i = 0; i < tail.size(); i++)
 		tail[i].reset_position(get_x(), get_y());
+
 }
