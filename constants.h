@@ -21,6 +21,7 @@
 #define MOUSE     ('M')	//mouse symbol
 #define HOLE      ('H')	//hole symbol
 #define FREECELL  ('.')	//empty cell on grid
+#define NUT		  ('N') //nut symbol
 #define TAIL ('T') //tail symbol
 
 //defining the command letters to move the mouse on the maze

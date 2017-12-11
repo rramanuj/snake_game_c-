@@ -20,6 +20,12 @@ bool Mouse::is_alive() const {
 bool Mouse::has_escaped() const {
 	return escaped_;
 }
+bool Mouse::can_collect_nut(const Nut& n) const {
+	if (!(n.has_been_collected()) && (is_at_position(n.get_x(), n.get_y())))
+		return true;
+	else
+		return false;
+}
 void Mouse::new_game() {
 	alive_ = true;
 	escaped_ = false;

@@ -19,6 +19,7 @@ void Game::set_up(UserInterface* pui) {
 		cin >> answer;
 		if (answer == 1) {
 			snake_.new_game();
+			nut_.new_game();
 		}
 		else {
 			loadGame(*this);
@@ -65,6 +66,9 @@ string Game::prepare_grid() {
 				if ((row == mouse_.get_y()) && (col == mouse_.get_x()))
 					os << mouse_.get_symbol();	//show mouse
 				else
+					if (((row == nut_.get_y()) && (col == nut_.get_x())) && !nut_.has_been_collected())
+						os << nut_.get_symbol(); //show nut
+					else
 				{
 					const int hole_no(find_hole_number_at_position(col, row));
 					if (hole_no != -1)
@@ -88,11 +92,21 @@ int Game::find_hole_number_at_position(int x, int y) {
 	return -1;				//not a hole
 }
 void Game::apply_rules() {
-	if (snake_.has_caught_mouse())
-		mouse_.die();
+	if (mouse_.can_collect_nut(nut_))
+		nut_.disappear();
 	else
-		if (mouse_.has_reached_a_hole(underground_))
+		if (snake_.has_caught_mouse())
+			mouse_.die();
+	else
+		if (mouse_.has_reached_a_hole(underground_) && (nut_.has_been_collected())) {
+			
 			mouse_.escape_into_hole();
+		}
+		else
+			if (snake_.has_caught_mouse()) {
+			
+				mouse_.die();
+			}
 }
 bool Game::has_ended(char key) {
 	return ((key == 'Q') || (!mouse_.is_alive()) || (mouse_.has_escaped()));

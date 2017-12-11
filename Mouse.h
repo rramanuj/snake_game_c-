@@ -13,6 +13,7 @@
 #include "constants.h"
 #include "Underground.h"
 #include "MoveableGridItem.h"
+#include "Nut.h"
 
 class Mouse : public MoveableGridItem{
 	public:
@@ -25,6 +26,7 @@ class Mouse : public MoveableGridItem{
 		bool has_reached_a_hole(const Underground& ug) const;
 		//mutators
 		void die();
+		bool can_collect_nut(const Nut& n) const;
 		void escape_into_hole();
 		void scamper(char k);
 		char symbol_;

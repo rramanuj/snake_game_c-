@@ -35,6 +35,7 @@ private:
 	Underground underground_;
 	UserInterface* p_ui;
 	int key_;
+	Nut nut_;
 };
 //---------------------------------------------------------------------------
 //non-member operator functions
