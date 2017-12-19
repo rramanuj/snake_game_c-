@@ -7,7 +7,7 @@ string Player::get_name() const {
 int Player::get_score_amount() const {
 	return score_.get_amount();
 }
-void Player::update_score_amount(const int& amount) {
+void Player::update_score_amount(int amount) {
 	score_.update_amount(amount);
 }
 

@@ -33,7 +33,6 @@ public:
 	bool is_valid_hole_number(int n) const;
 	const vector<Hole> holes_;
 
-
 private:
 
 };

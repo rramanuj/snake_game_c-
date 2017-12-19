@@ -10,3 +10,5 @@ void Nut::disappear() {
 void Nut::new_game() {
 	collected_ = false;
 }
+
+

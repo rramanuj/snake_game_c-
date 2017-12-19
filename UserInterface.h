@@ -21,8 +21,14 @@ class UserInterface {
 		void draw_grid_on_screen(const string& grid_data) const ;
 		void show_results_on_screen(string message) const;
 		void hold_window();
+		void display_stats(const string & name, const int& score) const;
+		string entry_screen();
 		static string get_player_name();
+		char play_again();
 
+private:
+		char input_;
+		string name_;
 };
 
 #endif // !defined(UserInterfaceH)

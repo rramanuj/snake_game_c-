@@ -4,7 +4,7 @@ int Score::get_amount() const
 {
 	return amount_;
 }
-void Score::update_amount(const int& amount)
+void Score::update_amount(int amount)
 {
 	amount_ += amount;
 }

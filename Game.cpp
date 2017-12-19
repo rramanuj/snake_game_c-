@@ -5,35 +5,28 @@
 #include <fstream> //
 using namespace std;
 
-void Game::set_up(UserInterface* pui) {
+void Game::set_up(UserInterface* pui, Player& player, bool savedGame) {
 	int answer;
 	string name;
-	//prepare game
-	//set up the holes
+	
+	player_ = &player;	//if its a saved game it sets the parameters to whatever is on the thing
+	if (savedGame) {
+		loadGame(*this);
+	}
 
-	//mouse state already set up in its contructor
-	//set up snake
-
-	p_ui->show_results_on_screen("WELCOME TO THE AMAZING SNAKE GAME!\n1. New Game\n2. Continue\n");
-		cin >> answer;
-		if (answer == 1) {
-			p_ui->show_results_on_screen("WHAT IS YOUR NAME?\n");
-			cin >> name;
-			this->player_.set_name(name);
-			snake_.new_game();
-			nut_.new_game();
-		}
-		else {
-			loadGame(*this);
-		}
 	snake_.spot_mouse(&mouse_);
 	//set up the UserInterface
 	p_ui = pui;
+	
+
 }
 void Game::run() {
-	do {
+//	do {
 		assert(p_ui != nullptr);
 		p_ui->draw_grid_on_screen(prepare_grid());
+		if (check_for_overlaps()){
+			p_ui->show_results_on_screen("WE'VE FUCKED IT KIDDA");
+		}
 		p_ui->show_results_on_screen(display_score_bar());
 		key_ = p_ui->get_keypress_from_user();
 		while (!has_ended(key_))
@@ -51,17 +44,14 @@ void Game::run() {
 		}
 		p_ui->show_results_on_screen(prepare_end_message());
 		new_game();
-	} while (p_ui->get_keypress_from_user() == 'Y');
+	//} while (p_ui->get_keypress_from_user() == 'Y');
 }
 void Game::new_game() {
-	nut_.new_game();
-	snake_.new_game();
-	mouse_.new_game();
-
+	
 }
 string Game::display_score_bar()const {
 	ostringstream os;
-	os << "NAME: " << player_.get_name() << "\tSCORE: " << player_.get_score_amount();
+	os << "NAME: " << player_->get_name() << "\tSCORE: " << player_->get_score_amount();
 	return os.str();
 }
 string Game::prepare_grid() {
@@ -95,7 +85,16 @@ string Game::prepare_grid() {
 	} //end of row-loop
 	return os.str();
 } //end prepare_grid
-
+bool Game::check_for_overlaps() {
+	if (nut_.get_y() && nut_.get_x() == mouse_.get_x() && mouse_.get_y())
+	return true;
+	else if (nut_.get_y() && nut_.get_x() == snake_.get_x() && snake_.get_y())
+	return true;
+	else if (snake_.get_y() && snake_.get_x() == mouse_.get_x() && mouse_.get_y())
+	return true;
+	else
+		return false;
+	}
 bool Game::is_arrow_key_code(int keycode) {
 	return (keycode == LEFT) || (keycode == RIGHT) || (keycode == UP) || (keycode == DOWN);
 	}
@@ -111,48 +110,17 @@ void Game::apply_rules() {
 	else
 		if (snake_.has_caught_mouse())
 		{
-			player_.update_score_amount(-1);
+			player_->update_score_amount(-1);
 			mouse_.die();
 		}
 		else
 			if (mouse_.has_reached_a_hole(underground_) && (nut_.has_been_collected())) {
-				player_.update_score_amount(1);
+				player_->update_score_amount(1);
 				mouse_.escape_into_hole();
 			}
 }
 bool Game::has_ended(char key) {
 	return ((key == 'Q') || (!mouse_.is_alive()) || (mouse_.has_escaped()));
-}
-
-
-void Game::SetToSerializedData(int sx, int sy, int mx, int my, int score, string name) {
-	snake_.set_position(sx,sy);	//need to ammend for serialization.
-//	mouse_.reset_position(mx, my);		//commented about there is no point in storing this if the mouse will die..
-	player_.set_name(name);
-	player_.update_score_amount(score);
-};
-
-const int Game::getSnakeX() {
-	return snake_.get_x();
-}
-
-const int Game::getSnakeY() {
-	return snake_.get_y();
-}
-
-const int Game::getMouseX() {
-	return mouse_.get_x();
-}
-
-const int Game::getMouseY() {
-	return mouse_.get_y();
-}
-const string Game::get_player_name() {
-	return player_.get_name();
-}
-
-const int Game::get_player_score() {
-	return player_.get_score_amount();
 }
 
 
@@ -174,13 +142,14 @@ string Game::prepare_end_message() {
 //serialization - replaces the use of the operator functions
 
 
-void Game::loadGame(Game& game) {
+void Game::loadGame(Game &game) {
+	string output;
 	ifstream fromFile;
 	fromFile.open("Game.txt", ios::in); 	//open file in read mode
 	if (fromFile.fail())
 		cout << "\nAN ERROR HAS OCCURED WHEN OPENING THE FILE.";
 	else
-		fromFile >> (game);  	//read  all info from game with pointer
+		fromFile >> (*this);  	//read  all info from game with pointer
 		fromFile.close();			//close file: optional here
 }
 
@@ -196,16 +165,16 @@ void Game::storeGameStatus( Game game)  {
 
 const ostream& operator<<(ostream& os, Game& aGame)  {
 	
-	os << aGame.getSnakeX() << "\n";	//saves the snake x position
-	os << aGame.getSnakeY() << "\n";	//snakes the snake y position
-	os << aGame.getMouseX() << "\n";	//saves the snake x position
-	os << aGame.getMouseY() << "\n";	//snakes the snake y position
-	os << aGame.get_player_score() << "\n";	//gets the player score
-	os << aGame.get_player_name() << "\n";	//gets the player name
+	os << aGame.snake_.get_x() << "\n";	//saves the snake x position
+	os << aGame.snake_.get_y() << "\n";	//snakes the snake y position
+	os << aGame.mouse_.get_x() << "\n";	//saves the snake x position
+	os << aGame.mouse_.get_y() << "\n";	//snakes the snake y position
+	os << aGame.player_->get_score_amount()<< "\n";	//gets the player score
+	os << aGame.player_->get_name() << "\n";	//gets the player name
 
 	return os;
 }
-const istream& operator>>(istream& is,  Game &aGame) {
+const istream& operator>>(istream& is, Game& aGame) {
 	ostringstream os;
 	int sx,sy,mx,my,score;
 	string name;
@@ -214,8 +183,10 @@ const istream& operator>>(istream& is,  Game &aGame) {
 	is >> mx;	//mouse x co-ordinates
 	is >> my; //mouse y co-ordinates
 	is >> score; //player last score
-	is >> name;	//player last name
-	aGame.SetToSerializedData(sx, sy,mx,my,score,name);
-	
+	is >> name;
+//	aGame.player_->set_name >> name 	//player last name
+	aGame.player_->set_name(name);
+	aGame.player_->update_score_amount(score);
+	//SetToSerializedData(sx, sy,mx,my,score,name, &aGame);
 	return is;
 }
