@@ -7,7 +7,7 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-Mouse::Mouse() : MoveableGridItem(MOUSE, 8, 9), alive_(true), escaped_(false),mouse_dx_(0), mouse_dy_(0) {}
+Mouse::Mouse() : MoveableGridItem(MOUSE, rng_.get_random_value(SIZE), rng_.get_random_value(SIZE)), alive_(true), escaped_(false),mouse_dx_(0), mouse_dy_(0) {}
 
 //////////////////////////////////////////////////////////////////////
 // Public functions

@@ -1,4 +1,5 @@
 #pragma once
+#include "RandomNumberGenerator.h"
 #include "GridItem.h"
 class MoveableGridItem :
 	public GridItem
@@ -9,9 +10,11 @@ public:
 	int get_y() const;
 	bool is_at_position(const int& x, const int& y) const;
 	void reset_position(const int& x, const int& y);
+	const static RandomNumberGenerator rng_;
 	void update_position(const int& dx, const int& dy);
 	//void new_game();		//to reset the positions of the snake and mouse when a new game is called?
 private:
+	
 	int x_, y_;
 };
 

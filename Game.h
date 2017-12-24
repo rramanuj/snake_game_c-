@@ -20,25 +20,28 @@ public:
 	int find_hole_number_at_position(int x, int y);
 	bool has_ended(char key);
 	string prepare_end_message();
-	void loadGame(Game &game);
+	string save_message();
+	void loadGame();
 	void storeGameStatus(Game game);
+	void save_last_move(Game game);
+	void undo();
 	bool check_for_overlaps();
 
 	friend const ostream& operator<<(ostream&, Game &game_);	//output operator
 	friend const istream& operator>>(istream&, Game &game_);	    //input operator
 	//functions to put data into and get data from streams
 
-	void SetToSerializedData(int sx, int sy, int mx, int my, int score, string name, Player &player);
+//	void SetToSerializedData(int sx, int sy, int mx, int my, int score, string name, Player &player);
 
 
 	//void loadGame(Game &game) const;
 	//void storeGameStatus(Game game) const;
-	const int getSnakeX();
+	/*(const int getSnakeX();
 	const int getSnakeY();
 	const int getMouseX();
 	const int getMouseY();
 	const string get_player_name();
-	const int get_player_score();
+	const int get_player_score();*/
 	
 
 private:

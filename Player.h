@@ -10,6 +10,7 @@ public:
 	string get_name() const;
 	int get_score_amount() const;
 	void update_score_amount(int);
+	void set_amount(int amount);
 	void set_name(string name);
 private:
 	string name_;

@@ -5,8 +5,8 @@
 #include "constants.h"
 #include "Mouse.h"
 #include "Snake.h"
-
-Snake::Snake() : MoveableGridItem(SNAKEHEAD, rng_.get_random_value(SIZE), rng_.get_random_value(SIZE)) {
+//rng_.get_random_value(SIZE), rng_.get_random_value(SIZE)
+Snake::Snake() : MoveableGridItem(SNAKEHEAD, rng_.get_random_value(SIZE), rng_.get_random_value(SIZE)){
 	p_mouse_ = nullptr; //to make the pointer is safe before the snake spots the mouse
 	for (int i = 0; i < 3; i++) {
 		tail.push_back(Tail(get_x(), get_y()));
@@ -90,11 +90,14 @@ void Snake::set_position(int x_, int y_) {
 }
 
 
-const RandomNumberGenerator Snake::rng_;
+//const RandomNumberGenerator Snake::rng_;
 RandomNumberGenerator Snake::getRNG() const { return rng_; }
 void Snake::position_at_random() {
 	reset_position(rng_.get_random_value(SIZE), rng_.get_random_value(SIZE));
 	for (int i = 0; i < tail.size(); i++)
 		tail[i].reset_position(get_x(), get_y());
-
+}
+void Snake::set_tail(int x_, int y_) {
+	for (int i = 0; i < tail.size(); i++)
+		tail[i].reset_position(x_, y_);
 }

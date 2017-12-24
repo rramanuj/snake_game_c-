@@ -3,6 +3,7 @@ MoveableGridItem::MoveableGridItem(const char& symbol, const int& x, const int& 
 int MoveableGridItem::get_x() const {
 	return x_;
 }
+const static RandomNumberGenerator rng_;
 int MoveableGridItem::get_y() const {
 	return y_;
 }

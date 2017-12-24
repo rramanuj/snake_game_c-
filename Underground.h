@@ -31,6 +31,7 @@ public:
 	
 	//void set_hole_no_at_position(const int& no, const int& x, const int& y) const;
 	bool is_valid_hole_number(int n) const;
+	bool overlaps(int x, int y) const;
 	const vector<Hole> holes_;
 
 private:

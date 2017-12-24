@@ -14,7 +14,7 @@ using namespace std;
 //using OO approach
 //---------------------------------
 UserInterface ui;
-
+void newGame(bool& SavedGame, Player& player_);
 int main()
 {
 
@@ -22,7 +22,7 @@ int main()
 
 	int answer;
 	string name;
-	bool SavedGame;
+	bool SavedGame = false;
 	ui.show_results_on_screen("       ---_ ......._-_--.\n");
 	ui.show_results_on_screen("      (| \ /      / /| \  \")\n");
 	ui.show_results_on_screen("      /  /     .'  -=-'   `.\n");
@@ -45,13 +45,20 @@ int main()
 
 	if (answer == 1) {
 		SavedGame = false;
-		ui.show_results_on_screen("WHAT IS YOUR NAME?\n");
-		cin >> name;
-		player_.set_name(name);
-		SavedGame = false;
+		newGame(SavedGame, player_);
 	}
 	else if (answer == 2) {
-		SavedGame = true;
+		ifstream fromFile;
+		fromFile.open("Game.txt", ios::in); 	//open file in read mode
+		if (fromFile.fail()) {
+			ui.show_results_on_screen("No game save available. Starting new game.");
+			ui.hold_window();
+			SavedGame = false;
+			newGame(SavedGame, player_);
+		}
+		else {
+			SavedGame = true;
+		}
 	}
 		do {
 			Game game;
@@ -63,3 +70,15 @@ int main()
 		ui.hold_window();
 		return 0;
 	}
+
+void newGame(bool& SavedGame, Player& player_) {
+	string name;
+	SavedGame = false;
+	ui.show_results_on_screen("\nWHAT IS YOUR NAME?\n");
+	cin >> name;
+	player_.set_name(name);
+	SavedGame = false;
+}
+void loadGame() {
+
+}
