@@ -9,7 +9,7 @@ using namespace std;
 void Game::set_up(UserInterface* pui, Player& player, bool savedGame) {
 	int answer;
 	string name;
-	
+
 	player_ = &player;	//if its a saved game it sets the parameters to whatever is on the thing
 	if (savedGame) {
 		loadGame();
@@ -22,9 +22,9 @@ void Game::set_up(UserInterface* pui, Player& player, bool savedGame) {
 	
 }
 void Game::run() {
-//	do {
 		assert(p_ui != nullptr);
 		p_ui->draw_grid_on_screen(prepare_grid());
+	
 		while (check_for_overlaps())
 		{
 			snake_.position_at_random();
@@ -35,15 +35,19 @@ void Game::run() {
 		key_ = p_ui->get_keypress_from_user();
 		while (!has_ended(key_))
 		{
+
 			if (is_arrow_key_code(key_))
 			{
-
+				last_snake_x = snake_.get_x();
+				last_snake_y = snake_.get_y();
+				last_nut_status = nut_.has_been_collected();
+				last_mouse_x = mouse_.get_x();
+				last_mouse_y = mouse_.get_y();
 				mouse_.scamper(key_);
 				snake_.chase_mouse();
 				p_ui->draw_grid_on_screen(prepare_grid());
 				apply_rules();
 				p_ui->show_results_on_screen(display_score_bar());
-
 			}
 			if (key_ == 83) {
 				storeGameStatus(*this); //saves game status
@@ -54,18 +58,38 @@ void Game::run() {
 
 			}
 			if (key_ == 76) {
-				this->loadGame(); //saves game status
+				this->loadGame(); //Loads previous save
 				p_ui->draw_grid_on_screen(prepare_grid());
 				apply_rules();
 				p_ui->show_results_on_screen(display_score_bar());
 				p_ui->show_results_on_screen("\nPrevious Save Loaded!");
 
 			}
+			if (key_ == 85) {
+				if (last_snake_x == 0) 
+				{
+					p_ui->show_results_on_screen("\nNo move to undo!");
+				}
+				else {
+					mouse_.reset_position(last_mouse_x, last_mouse_y);
+					snake_.reset_position(last_snake_x, last_snake_y);
+					snake_.set_tail(last_snake_x, last_snake_y);
+					//nut to do
+					if (last_nut_status) { //if nut has been collected
+						nut_.disappear();
+					}
+					// this needs to be tested in cheat mode
+
+					p_ui->draw_grid_on_screen(prepare_grid());
+					apply_rules();
+					p_ui->show_results_on_screen(display_score_bar());
+					p_ui->show_results_on_screen("\nLast Move Undone!!");
+				}
+			}
 			key_ = p_ui->get_keypress_from_user();
 		}
 		p_ui->show_results_on_screen(prepare_end_message());
 		new_game();
-	//} while (p_ui->get_keypress_from_user() == 'Y');
 }
 void Game::new_game() {
 	
@@ -171,7 +195,7 @@ string Game::save_message() {
 	return os.str();
 }
 
-void Game::save_last_move(Game game) {
+/*void Game::save_last_move(Game game) {
 	ofstream fout;
 	fout.open("Undo.txt", ios::out);
 	if (fout.fail())
@@ -179,7 +203,38 @@ void Game::save_last_move(Game game) {
 	else
 		fout << game;	//insertion operator<< for Game instances
 	fout.close();
+}*/
+
+void Game::save_last_move(Game game) {
+
 }
+/*void Game::undo() {
+	int sx, sy, mx, my, score;
+	bool nut;
+	string output, name;
+	ifstream fromFile;
+	fromFile.open("Game.txt", ios::in); 	//open file in read mode
+	if (fromFile.fail()) {
+		cout << "\nNo game save available.";
+	}
+	else {
+		fromFile >> (*this);  	//read  all info from game with pointer
+		fromFile >> sx; //snake x co-ordinates
+		fromFile >> sy;	//snake y co-ordinates
+		fromFile >> mx;	//mouse x co-ordinates
+		fromFile >> my; //mouse y co-ordinates
+		fromFile >> nut;	//nut status (has been collected or no)
+
+		mouse_.reset_position(mx, my);
+		snake_.reset_position(sx, sy);
+		snake_.set_tail(sx, sy);
+
+		if (nut) {
+			nut_.disappear();
+		}
+		fromFile.close();			//close file: optional here
+	}
+}*/
 
 //serialization - replaces the use of the operator functions
 

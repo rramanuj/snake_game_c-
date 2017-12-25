@@ -45,6 +45,8 @@ public:
 	
 
 private:
+	int last_snake_x, last_snake_y, last_mouse_x, last_mouse_y;
+	bool last_nut_status;
 	Mouse mouse_;
 	Snake snake_;
 	Underground underground_;
