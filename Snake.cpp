@@ -90,7 +90,7 @@ void Snake::set_position(int x_, int y_) {
 }
 
 
-//const RandomNumberGenerator Snake::rng_;
+const RandomNumberGenerator Snake::rng_;
 RandomNumberGenerator Snake::getRNG() const { return rng_; }
 void Snake::position_at_random() {
 	reset_position(rng_.get_random_value(SIZE), rng_.get_random_value(SIZE));

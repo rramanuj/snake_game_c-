@@ -19,14 +19,17 @@ void Game::set_up(UserInterface* pui, Player& player, bool savedGame) {
 	//set up the UserInterface
 	p_ui = pui;
 	
-
+	
 }
 void Game::run() {
 //	do {
 		assert(p_ui != nullptr);
 		p_ui->draw_grid_on_screen(prepare_grid());
-		if (check_for_overlaps()){
-			p_ui->show_results_on_screen("WE'VE FUCKED IT KIDDA");
+		while (check_for_overlaps())
+		{
+			snake_.position_at_random();
+			mouse_.position_at_random();
+			nut_.position_at_random();
 		}
 		p_ui->show_results_on_screen(display_score_bar());
 		key_ = p_ui->get_keypress_from_user();
@@ -34,6 +37,7 @@ void Game::run() {
 		{
 			if (is_arrow_key_code(key_))
 			{
+
 				mouse_.scamper(key_);
 				snake_.chase_mouse();
 				p_ui->draw_grid_on_screen(prepare_grid());

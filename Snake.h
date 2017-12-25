@@ -20,11 +20,13 @@ class Snake : public MoveableGridItem {
 		void move_tail();
 		void set_tail(int x_, int y_);
 		void set_position(int x_, int y_); //serialization
+		void position_at_random();
+
 	private:
+		const static RandomNumberGenerator rng_;
 
 		Mouse* p_mouse_;
 		vector<Tail> tail;
 	//	const static RandomNumberGenerator rng_;
-		void position_at_random();
 
 };

@@ -11,6 +11,7 @@
 #define MouseH
 
 #include "constants.h"
+#include "RandomNumberGenerator.h"
 #include "Underground.h"
 #include "MoveableGridItem.h"
 #include "Nut.h"
@@ -30,6 +31,7 @@ class Mouse : public MoveableGridItem{
 		void scamper(char k);
 		char symbol_;
 		void new_game();
+		void position_at_random();
 
 	private:
 		//data members
@@ -38,6 +40,7 @@ class Mouse : public MoveableGridItem{
 		int mouse_dx_;
 		int mouse_dy_;
 		//supporting functions 
+		const static RandomNumberGenerator rng_;
 		void position_in_middle_of_grid();
 };
 

@@ -82,6 +82,11 @@ void Mouse::scamper(char k) { //move mouse in required direction
 // Private functions
 //////////////////////////////////////////////////////////////////////
 
+
+const RandomNumberGenerator Mouse::rng_;
 void Mouse::position_in_middle_of_grid() {
 	reset_position((SIZE / 2), (SIZE / 2)); //sets to mid
+}
+void Mouse::position_at_random() {
+	reset_position(rng_.get_random_value(SIZE), rng_.get_random_value(SIZE));
 }
