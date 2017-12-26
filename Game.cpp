@@ -24,7 +24,7 @@ void Game::set_up(UserInterface* pui, Player& player, bool savedGame) {
 void Game::run() {
 		assert(p_ui != nullptr);
 		p_ui->draw_grid_on_screen(prepare_grid());
-	
+		bool cheatmode = false;
 		while (check_for_overlaps())
 		{
 			snake_.position_at_random();
@@ -44,10 +44,17 @@ void Game::run() {
 				last_mouse_x = mouse_.get_x();
 				last_mouse_y = mouse_.get_y();
 				mouse_.scamper(key_);
-				snake_.chase_mouse();
+				if (!cheatmode)
+				{
+					snake_.chase_mouse();	//only chase mouse is cheatmode is off.
+				}
 				p_ui->draw_grid_on_screen(prepare_grid());
 				apply_rules();
 				p_ui->show_results_on_screen(display_score_bar());
+				if (cheatmode)
+				{
+					p_ui->show_results_on_screen("\nCHEAT MODE ACTIVATED!");
+				}
 			}
 			if (key_ == 83) {
 				storeGameStatus(*this); //saves game status
@@ -57,6 +64,7 @@ void Game::run() {
 				p_ui->show_results_on_screen("\nGame has been saved!");
 
 			}
+			
 			if (key_ == 76) {
 				this->loadGame(); //Loads previous save
 				p_ui->draw_grid_on_screen(prepare_grid());
@@ -64,8 +72,8 @@ void Game::run() {
 				p_ui->show_results_on_screen(display_score_bar());
 				p_ui->show_results_on_screen("\nPrevious Save Loaded!");
 
-			}
-			if (key_ == 85) {
+			}	
+			if (key_ == 85) { //undo
 				if (last_snake_x == 0) 
 				{
 					p_ui->show_results_on_screen("\nNo move to undo!");
@@ -75,16 +83,29 @@ void Game::run() {
 					snake_.reset_position(last_snake_x, last_snake_y);
 					snake_.set_tail(last_snake_x, last_snake_y);
 					//nut to do
-					if (last_nut_status) { //if nut has been collected
-						nut_.disappear();
+					if (!last_nut_status) { //if nut hasn't been collected reset nut pos
+						nut_.new_game();
 					}
-					// this needs to be tested in cheat mode
 
 					p_ui->draw_grid_on_screen(prepare_grid());
 					apply_rules();
 					p_ui->show_results_on_screen(display_score_bar());
 					p_ui->show_results_on_screen("\nLast Move Undone!!");
 				}
+
+			}
+			if (key_ == 67) {		//cheat mode
+				if (cheatmode) 
+				{
+					cheatmode = false;
+					p_ui->show_results_on_screen("\nCHEAT MODE DEACTIVATED!");
+				}
+				else {
+					cheatmode = true;
+					p_ui->show_results_on_screen("\nCHEAT MODE ACTIVATED!");
+				}
+			
+
 			}
 			key_ = p_ui->get_keypress_from_user();
 		}
