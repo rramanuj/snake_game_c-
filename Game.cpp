@@ -23,7 +23,7 @@ void Game::set_up(UserInterface* pui, Player& player, bool savedGame) {
 }
 void Game::run() {
 		assert(p_ui != nullptr);
-		p_ui->draw_grid_on_screen(prepare_grid());
+	
 		bool cheatmode = false;
 		while (check_for_overlaps())
 		{
@@ -31,6 +31,7 @@ void Game::run() {
 			mouse_.position_at_random();
 			nut_.position_at_random();
 		}
+		p_ui->draw_grid_on_screen(prepare_grid());
 		p_ui->show_results_on_screen(display_score_bar());
 		key_ = p_ui->get_keypress_from_user();
 		while (!has_ended(key_))
@@ -187,12 +188,33 @@ void Game::apply_rules() {
 			player_->update_score_amount(-1);
 			mouse_.die();
 		}
-		else
-			if (mouse_.has_reached_a_hole(underground_) && (nut_.has_been_collected())) {
-				player_->update_score_amount(1);
-				mouse_.escape_into_hole();
+		else if (mouse_.has_reached_a_hole(underground_) && (nut_.has_been_collected())) {
+			player_->update_score_amount(1);
+			mouse_.escape_into_hole();
+		}
+		else //else if mouse has reached a hole without the collection of a nut..
+			if (mouse_.has_reached_a_hole(underground_) && (!nut_.has_been_collected())) {
+				int hole, new_x, new_y, randomNumber;
+				for (int h_no(0); h_no < underground_.holes_.size(); ++h_no) {
+					if ((underground_.get_hole_no(h_no).get_x() == (mouse_.get_x())) && ((underground_.get_hole_no(h_no).get_y()) == mouse_.get_y()))
+					{	
+						//this for loop is finding which hole the mouse is on top of by getting the x & y coordinates of each hole and 
+						//comparing it to the x & y co-ordinates of the mouse
+						hole = (h_no);	//sets the hole variable to the hole number the mouse is on top of when found
+					}
+				}
+				randomNumber = rand() % 3;	//generates a random number between 1 - 3
+				while (randomNumber == hole) {	//if the random number is the same as hole the entry hole, reset random number
+					randomNumber = rand() % 3;	
+				}
+				//randomly sets the mouse x & y co-ordinates to another hole position, excluding the entry hole.
+				new_x = underground_.get_hole_no(randomNumber).get_x();
+				new_y = underground_.get_hole_no(randomNumber).get_y();
+				mouse_.reset_position(new_x, new_y);
 			}
 }
+	
+
 bool Game::has_ended(char key) {
 	return ((key == 'Q') || (!mouse_.is_alive()) || (mouse_.has_escaped()));
 }
@@ -216,46 +238,6 @@ string Game::save_message() {
 	return os.str();
 }
 
-/*void Game::save_last_move(Game game) {
-	ofstream fout;
-	fout.open("Undo.txt", ios::out);
-	if (fout.fail())
-		cout << "\nAn error has occurred when opening the file.";
-	else
-		fout << game;	//insertion operator<< for Game instances
-	fout.close();
-}*/
-
-void Game::save_last_move(Game game) {
-
-}
-/*void Game::undo() {
-	int sx, sy, mx, my, score;
-	bool nut;
-	string output, name;
-	ifstream fromFile;
-	fromFile.open("Game.txt", ios::in); 	//open file in read mode
-	if (fromFile.fail()) {
-		cout << "\nNo game save available.";
-	}
-	else {
-		fromFile >> (*this);  	//read  all info from game with pointer
-		fromFile >> sx; //snake x co-ordinates
-		fromFile >> sy;	//snake y co-ordinates
-		fromFile >> mx;	//mouse x co-ordinates
-		fromFile >> my; //mouse y co-ordinates
-		fromFile >> nut;	//nut status (has been collected or no)
-
-		mouse_.reset_position(mx, my);
-		snake_.reset_position(sx, sy);
-		snake_.set_tail(sx, sy);
-
-		if (nut) {
-			nut_.disappear();
-		}
-		fromFile.close();			//close file: optional here
-	}
-}*/
 
 //serialization - replaces the use of the operator functions
 
